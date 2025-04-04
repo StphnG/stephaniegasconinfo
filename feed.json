@@ -1,0 +1,27 @@
+{
+    "version": "https://jsonfeed.org/version/1",
+    "title": "Stephanie Gascon",
+    "description": "",
+    "home_page_url": "https://stphng.github.io/stephaniegasconinfo",
+    "feed_url": "https://stphng.github.io/stephaniegasconinfo/feed.json",
+    "user_comment": "",
+    "author": {
+        "name": "Stephanie"
+    },
+    "items": [
+        {
+            "id": "https://stphng.github.io/stephaniegasconinfo/github-pages-setup.html",
+            "url": "https://stphng.github.io/stephaniegasconinfo/github-pages-setup.html",
+            "title": "GitHub Pages Setup",
+            "summary": "First post to set up Publii with GitHub Pages.",
+            "content_html": "\n  <p>\n    First post to set up Publii with GitHub Pages.\n  </p>\n\n  <p>\n    \n  </p>",
+            "author": {
+                "name": "Stephanie"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-08-22T17:53:18+08:00",
+            "date_modified": "2024-08-22T17:53:18+08:00"
+        }
+    ]
+}
