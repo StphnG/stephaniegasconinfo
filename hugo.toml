@@ -1,9 +1,9 @@
 baseURL = "https://stephaniegascon.info/"
-copyright = '© {year} Stephanie Gascon'
+copyright = '© 2025 Stephanie Gascon'
 languageCode = "en-SG"
 title = "Stephanie Gascon"
 
-enableRobotsTXT = true
+enableRobotsTXT = false
 
 # When using ref or relref to resolve page links and a link cannot
 # resolve, it will be logged with this log level.
@@ -22,7 +22,7 @@ refLinksErrorLevel = 'WARNING'
 
   # Custom footer text on left sidebar. Use HTMl if needed.
   # "&copy;" and "{year}" will be replaced by © and the current year.
-  footer = 'Built with <a href="https://github.com/sergeyklay/gohugo-theme-ed" target="_blank" rel="noopener noreferrer">Ed</a>. Distributed under an MIT license.'
+  footer = 'Built with <a href="https://github.com/sergeyklay/gohugo-theme-ed" target="_blank" rel="noopener noreferrer">Ed</a>. Distributed under an MIT license. Content &copy; {year} Stephanie Gascon.'
 
   # Colour scheme. Options: red, orange, magenta, cyan, blue, brown
   colorScheme = 'cyan'
@@ -81,8 +81,6 @@ refLinksErrorLevel = 'WARNING'
     facebookAdminIds = []
     # Facebook Page ID
     facebookId = ''
-    # Twitter username for the website
-    twitter = 'egreps'
 
   # Configure search engine
   [params.search]
@@ -138,29 +136,26 @@ refLinksErrorLevel = 'WARNING'
     languageCode = 'ja'
     languageDirection = 'ltr'
     languageName = '日本語'
+	title = "ステファニー・ガスコン" 
     weight = 2
 
 # For more see https://gohugo.io/content-management/menus/
 [languages.en.menus]
 
   [[languages.en.menus.main]]        # sections in the website sidebar
-    identifier = 'home' # menu item id
     name = 'Home'       # menu item display title
     pageRef = '/'       # path to the page
     weight = 1          # order of the menu item
   [[languages.en.menus.main]]
-    identifier = 'posts'
     name = 'Blog'
     pageRef = '/posts'
     weight = 2
   [[languages.en.menus.main]]
-    identifier = 'links'
     name = 'Links'
     pageRef = '/links'
     weight = 3
 
   [[languages.en.menus.feeds]]
-    identifier = 'rss'
     name = 'RSS 2.0'
     url = '/rss.xml'
     weight = 1
@@ -168,23 +163,19 @@ refLinksErrorLevel = 'WARNING'
 [languages.ja.menus]
 
   [[languages.ja.menus.main]]        # sections in the website sidebar
-    identifier = 'home' # menu item id
     name = 'ホーム'       # menu item display title
-    pageRef = '/'       # path to the page
+    pageRef = '/ja/'       # path to the page
     weight = 1          # order of the menu item
   [[languages.ja.menus.main]]
-    identifier = 'posts'
     name = 'ブログ'
-    pageRef = '/posts'
+    pageRef = '/ja/posts'
     weight = 2
   [[languages.ja.menus.main]]
-    identifier = 'links'
     name = 'リンク'
-    pageRef = '/links'
+    pageRef = '/ja/links'
     weight = 3
 
   [[languages.ja.menus.feeds]]
-    identifier = 'rss'
     name = 'RSS 2.0'
     url = '/rss.xml'
     weight = 1
