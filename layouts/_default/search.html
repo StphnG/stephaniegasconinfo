@@ -1,0 +1,14 @@
+{{ define "main" }}
+<div class="search-container">
+  <h1>{{ .Title }}</h1>
+  
+  <div class="search-form">
+    <input type="text" id="search-input" placeholder="{{ i18n "searchPlaceholder" }}" aria-label="Search">
+  </div>
+
+  <div id="search-results"></div>
+</div>
+
+<script src="/js/lunr.min.js"></script>
+<script src="/js/search.js"></script>
+{{ end }}

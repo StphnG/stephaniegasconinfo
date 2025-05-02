@@ -1,0 +1,14 @@
+{{- $index := slice -}}
+{{- range where .Site.RegularPages "Type" "not in" (slice "page" "json") -}}
+  {{- $page := . -}}
+  {{- if or (eq $page.Language.Lang "en") (eq $page.Language.Lang .Site.Language.Lang) -}}
+    {{- $index = $index | append (dict 
+      "uri" $page.RelPermalink
+      "title" $page.Title
+      "content" $page.Plain
+      "tags" $page.Params.tags
+      "language" $page.Language.Lang
+    ) -}}
+  {{- end -}}
+{{- end -}}
+{{- $index | jsonify -}}

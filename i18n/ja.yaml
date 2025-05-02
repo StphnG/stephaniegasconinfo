@@ -1,0 +1,6 @@
+- id: readMore
+  translation: "続きを読む"
+- id: search
+  translation: "検索"
+- id: searchPlaceholder
+  translation: "検索..."

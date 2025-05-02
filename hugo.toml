@@ -84,6 +84,7 @@ refLinksErrorLevel = 'WARNING'
 
   # Configure search engine
   [params.search]
+    enable = true
     # Maximum length (in words) of each text blurb. You can change this
     # value if you find that 100 is too short or too long for your taste.
     maxSummaryLength = 100
@@ -154,6 +155,10 @@ refLinksErrorLevel = 'WARNING'
     name = 'Links'
     pageRef = '/links'
     weight = 3
+  [[languages.en.menus.main]]
+    name = 'Search'
+    pageRef = '/search'
+    weight = 4
 
   [[languages.en.menus.feeds]]
     name = 'RSS 2.0'
@@ -174,6 +179,10 @@ refLinksErrorLevel = 'WARNING'
     name = 'リンク'
     pageRef = '/ja/links'
     weight = 3
+  [[languages.ja.menus.main]]
+    name = '検索'
+    pageRef = '/search'
+    weight = 4
 
   [[languages.ja.menus.feeds]]
     name = 'RSS 2.0'
@@ -190,7 +199,7 @@ refLinksErrorLevel = 'WARNING'
   category = 'categories'
 
 [outputs]
-  home = ['html', 'rss', 'manifest', 'humanstxt']
+  home = ['html', 'rss', 'json', 'manifest', 'humanstxt']
   page= ['html']
   rss = ['rss']
   section = ['html', 'rss']
