@@ -1,0 +1,17 @@
+{{- /* Head custom scripts area start */ -}}
+{{- /*     A partial to be overwritten by the user. */ -}}
+{{- /*     Simply place a custom-scripts.html into your local /layouts/partials-directory. */ -}}
+{{- /*     Its content will appear before any scripts in <head>. */ -}}
+<!-- Search-specific scripts -->
+{{ if eq .Layout "search" }}
+  <script src="/js/lunr.js"></script>
+  <script src="/js/search.js"></script>
+{{ end }}
+<!-- Debug script loading -->
+<script>
+console.log('Custom scripts loaded');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM ready in custom scripts');
+});
+</script>
+{{- /* Head custom scripts area end */ -}}

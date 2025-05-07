@@ -1,3 +1,31 @@
+console.log('Search.js loaded');
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('DOM loaded in search.js');
+  
+  // Debug information
+  const searchInput = document.getElementById('search-input');
+  const searchResults = document.getElementById('search-results');
+  
+  console.log('Search input found:', !!searchInput);
+  console.log('Search results found:', !!searchResults);
+  
+  if (searchInput && searchResults) {
+    // Add visible feedback that script is working
+    searchResults.innerHTML = '<p>Search initialized. Type in the search box to begin...</p>';
+    
+    // Add a simple event listener to show script is functional
+    searchInput.addEventListener('input', function() {
+      if (this.value.length > 0) {
+        searchResults.innerHTML = '<p>You typed: ' + this.value + '</p><p>Full search results will appear below...</p>';
+      } else {
+        searchResults.innerHTML = '<p>Search initialized. Type in the search box to begin...</p>';
+      }
+    });
+  } else {
+    console.error('Search elements not found - cannot initialize search');
+    // Try adding to body if search elements aren't found
+    document.body.innerHTML += '<div style="color: red; padding: 20px; border: 2px solid red;">Search script loaded but cannot find search elements</div>';
+  }
 document.addEventListener('DOMContentLoaded', function() {
   // Get search input element
   const searchInput = document.getElementById('search-input');
@@ -10,8 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   console.log('Search components initialized');
   
-  // Load the index
-  fetch('/index.json')
+  // Current language from HTML tag
+  const currentLang = document.documentElement.lang || 'en';
+  console.log('Current language:', currentLang);
+  
+  // Load the language-specific index
+  fetch('/' + currentLang + '/index.json')
     .then(response => {
       console.log('Fetch response status:', response.status);
       if (!response.ok) {

@@ -2,8 +2,16 @@
 
 {{- $scripts := slice -}}
 {{- $scripts = $scripts | append (resources.Get "js/ed.js") -}}
-{{- $scripts = $scripts | resources.Concat "js/common.js" -}}
 
+{{/* Add search scripts if on search page */}}
+{{- if eq .Layout "search" -}}
+    {{- $lunrJS := resources.Get "js/lunr.js" | resources.Copy "js/lunr-copy.js" -}}
+    {{- $searchJS := resources.Get "js/search.js" | resources.Copy "js/search-copy.js" -}}
+    {{- $scripts = $scripts | append $lunrJS -}}
+    {{- $scripts = $scripts | append $searchJS -}}
+{{- end -}}
+
+{{- $scripts = $scripts | resources.Concat "js/common.js" -}}
 {{- $scripts = $scripts | js.Build (dict "format" "iife" "target" "es2015" "minify" $isProduction) -}}
 
 {{- if or (site.Params.assets.disable_fingerprinting) (not $isProduction) }}
@@ -11,4 +19,90 @@
 {{- else -}}
     {{- $scripts = $scripts | fingerprint }}
     <script src="{{ $scripts.RelPermalink }}" integrity="{{ $scripts.Data.Integrity }}"></script>
+{{- end -}}
+
+{{/* Add direct inline script for search functionality */}}
+{{- if eq .Layout "search" -}}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Search page initialized');
+    
+    // Check if search elements exist
+    var searchInput = document.getElementById('search-input');
+    var searchResults = document.getElementById('search-results');
+    
+    if (!searchInput || !searchResults) {
+        console.error('Search elements not found');
+        
+        // Create search elements if they don't exist
+        var pageContent = document.querySelector('.page-content');
+        if (pageContent) {
+            var searchContainer = document.createElement('div');
+            searchContainer.className = 'search-container';
+            searchContainer.innerHTML = `
+                <div class="search-form">
+                    <input type="text" id="search-input" style="width: 100%; padding: 10px; margin: 10px 0;" placeholder="Search...">
+                </div>
+                <div id="search-results" style="min-height: 100px;"></div>
+            `;
+            pageContent.prepend(searchContainer);
+            
+            searchInput = document.getElementById('search-input');
+            searchResults = document.getElementById('search-results');
+            
+            console.log('Search elements created dynamically');
+        }
+    }
+    
+    if (searchInput && searchResults) {
+        // Current language
+        var currentLang = document.documentElement.lang || 'en';
+        
+        // Fetch the index
+        fetch('/' + currentLang + '/index.json')
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                console.log('Search index loaded:', data.length, 'items');
+                
+                // Simple search implementation
+                searchInput.addEventListener('input', function() {
+                    var query = this.value.toLowerCase();
+                    
+                    if (query.length < 2) {
+                        searchResults.innerHTML = '';
+                        return;
+                    }
+                    
+                    // Filter results
+                    var results = data.filter(function(item) {
+                        return item.title.toLowerCase().includes(query) || 
+                               item.content.toLowerCase().includes(query);
+                    });
+                    
+                    // Display results
+                    if (results.length === 0) {
+                        searchResults.innerHTML = '<p>No results found</p>';
+                    } else {
+                        var html = '<ul style="list-style: none; padding: 0;">';
+                        results.forEach(function(result) {
+                            html += '<li style="margin-bottom: 15px; padding: 10px; border: 1px solid #eee;">' + 
+                                    '<a href="' + result.uri + '"><strong>' + result.title + '</strong></a>' + 
+                                    '<p>' + result.content.substring(0, 150) + '...</p>' + 
+                                    '</li>';
+                        });
+                        html += '</ul>';
+                        searchResults.innerHTML = html;
+                    }
+                });
+                
+                // Show ready status
+                searchResults.innerHTML = '<p>Search ready - type to begin...</p>';
+            })
+            .catch(function(error) {
+                console.error('Error loading search index:', error);
+                searchResults.innerHTML = '<p>Error loading search index. Please try again later.</p>';
+            });
+    }
+});
+</script>
 {{- end -}}

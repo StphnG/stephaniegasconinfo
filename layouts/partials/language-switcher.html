@@ -1,29 +1,30 @@
 <div class="language-switcher">
   {{ $currentPage := . }}
+  {{ $currentLang := $currentPage.Language.Lang }}
+  
   {{ range .Site.Languages }}
-    {{ $langCode := .Lang }}
+    {{ $targetLang := .Lang }}
     
-    {{ if eq $langCode $currentPage.Language.Lang }}
-      <!-- Current language -->
-      <a href="#" class="active">{{ .LanguageName }}</a>
+    {{ if eq $targetLang $currentLang }}
+      <span class="active">{{ .LanguageName }}</span>
     {{ else }}
-      <!-- Try to find a translation of this specific page -->
-      {{ $hasTranslation := false }}
-      {{ range $currentPage.Translations }}
-        {{ if eq .Language.Lang $langCode }}
-          {{ $hasTranslation = true }}
-          <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
-        {{ end }}
+      {{ $targetURL := "" }}
+      
+      {{ if $currentPage.IsHome }}
+        {{ $targetURL = printf "/%s/" $targetLang }}
+      {{ else if $currentPage.IsSection }}
+        {{ $section := $currentPage.Section }}
+        {{ $targetURL = printf "/%s/%s/" $targetLang $section }}
+      {{ else if $currentPage.IsPage }}
+        {{ $section := $currentPage.Section }}
+        {{ $fileName := $currentPage.File.ContentBaseName }}
+        {{ $targetURL = printf "/%s/%s/%s/" $targetLang $section $fileName }}
+      {{ else }}
+        {{ $pathWithoutLang := strings.TrimPrefix (printf "/%s" $currentLang) $currentPage.RelPermalink }}
+        {{ $targetURL = printf "/%s%s" $targetLang $pathWithoutLang }}
       {{ end }}
       
-      <!-- If no translation exists, go to language home -->
-      {{ if not $hasTranslation }}
-        {{ $langPrefix := "" }}
-        {{ if ne $langCode "en" }}
-          {{ $langPrefix = printf "/%s" $langCode }}
-        {{ end }}
-        <a href="{{ $langPrefix }}/">{{ .LanguageName }}</a>
-      {{ end }}
+      <a href="{{ $targetURL }}">{{ .LanguageName }}</a>
     {{ end }}
   {{ end }}
 </div>

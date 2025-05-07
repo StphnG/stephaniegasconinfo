@@ -2,6 +2,7 @@ baseURL = "https://stephaniegascon.info/"
 copyright = '© 2025 Stephanie Gascon'
 languageCode = "en-SG"
 title = "Stephanie Gascon"
+defaultContentLanguageInSubdir = true
 
 enableRobotsTXT = false
 
@@ -132,6 +133,7 @@ refLinksErrorLevel = 'WARNING'
     languageDirection = 'ltr'
     languageName = 'English'
     weight = 1
+	contentDir = 'content/en'
 	
  [languages.ja]
     languageCode = 'ja'
@@ -139,6 +141,7 @@ refLinksErrorLevel = 'WARNING'
     languageName = '日本語'
 	title = "ステファニー・ガスコン" 
     weight = 2
+	contentDir = 'content/ja'
 
 # For more see https://gohugo.io/content-management/menus/
 [languages.en.menus]

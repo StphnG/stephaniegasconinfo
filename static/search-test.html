@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Test</title>
+    <meta charset="utf-8">
+</head>
+<body>
+    <h1>Search Test Page</h1>
+    
+    <div style="border: 3px solid red; padding: 20px; margin: 20px;">
+        <input type="text" id="search-input" 
+               style="width: 100%; padding: 10px; margin: 10px 0;" 
+               placeholder="Type to search...">
+        <div id="search-results" style="min-height: 50px; border: 1px solid #ccc; padding: 10px;">
+            Results will appear here
+        </div>
+    </div>
+
+    <script>
+        // Write text directly to the page to confirm JavaScript is running
+        document.write('<p style="color: green; font-weight: bold;">JavaScript is running!</p>');
+        
+        // Use the alert function to force interaction
+        alert('JavaScript is working on this page. Click OK to continue.');
+        
+        // Basic functionality
+        document.getElementById('search-results').innerHTML = 'Search initialized!';
+        
+        document.getElementById('search-input').addEventListener('input', function() {
+            document.getElementById('search-results').innerHTML = 'You searched for: ' + this.value;
+        });
+    </script>
+</body>
+</html>
